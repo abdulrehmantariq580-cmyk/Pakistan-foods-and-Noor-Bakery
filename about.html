@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pakistan Foods & Noor Bakery</title>
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=Dancing+Script:wght@700&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ============================================================
+           CORE CSS: THE GREEN FUSION FRAMEWORK
+           ============================================================ */
+        
+        :root {
+            --p-green: #00401A;      /* Dark Forest Green */
+            --s-green: #006429;      /* Emerald Green */
+            --pure-white: #FFFFFF;
+            --off-white: #F9FBF9;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-bakery: 'Dancing Script', cursive;
+            --font-heading: 'Playfair Display', serif;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, var(--pure-white), #e8f5e9);
+            color: var(--p-green);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- CUSTOM SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--off-white); }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(var(--p-green), var(--s-green)); 
+            border-radius: 10px; 
+        }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--pure-white);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader-ring {
+            width: 60px; height: 60px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--p-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- UNIFIED HEADER --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        /* Brand Typography */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-brand img { height: 55px; width: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+
+        .brand-text { line-height: 1; }
+        .brand-text .main-title { 
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--p-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .brand-text .sub-title { 
+            font-family: var(--font-bakery);
+            font-size: 1.3rem;
+            color: var(--s-green);
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* PC Navigation */
+        .nav-links { display: flex; list-style: none; gap: 35px; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--p-green); 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0%; height: 2px; background: var(--p-green); transition: 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Mobile Toggle (Hamburger) */
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--p-green);
+        }
+
+        /* --- SIDE NAVIGATION (Mobile) --- */
+        .side-nav {
+            position: fixed;
+            top: 0; right: -300px;
+            width: 280px; height: 100vh;
+            background: var(--pure-white);
+            z-index: 2000;
+            padding: 40px 30px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .side-nav.active { right: 0; }
+        .close-btn { align-self: flex-end; font-size: 1.8rem; cursor: pointer; color: var(--p-green); }
+        .side-nav a { 
+            text-decoration: none; color: var(--p-green); 
+            font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
+        }
+        .sidebar-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+            z-index: 1500; display: none; backdrop-filter: blur(5px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 5% 50px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 4.8rem);
+            color: var(--p-green);
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .hero-title span { font-family: var(--font-bakery); color: var(--s-green); font-size: 1.2em; display: block; margin-top: 10px; }
+
+        .hero-p { font-size: 1.1rem; color: #444; margin-bottom: 40px; max-width: 500px; }
+
+        .btn-group { display: flex; gap: 20px; }
+        .btn {
+            padding: 16px 35px; border-radius: 50px; border: none;
+            font-weight: 800; text-transform: uppercase; font-size: 0.8rem;
+            cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 10px;
+        }
+        .btn-primary { background: var(--p-green); color: white; box-shadow: 0 10px 20px rgba(0,64,26,0.2); }
+        .btn-outline { background: transparent; border: 2px solid var(--p-green); color: var(--p-green); }
+        .btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
+
+        /* --- FLOATING LOGO --- */
+        .hero-visual { display: flex; justify-content: center; position: relative; }
+        .floating-logo {
+            width: 100%; max-width: 480px;
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(2deg); }
+        }
+
+        /* --- RESPONSIVE LOGIC --- */
+        @media (max-width: 1024px) {
+            .nav-links { display: none; }
+            .menu-btn { display: block; }
+            .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-visual { order: -1; margin-bottom: 20px; }
+            .floating-logo { max-width: 280px; }
+            .hero-p { margin: 0 auto 30px; }
+            .btn-group { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+            .navbar { padding: 15px 5%; }
+            .nav-brand img { height: 45px; }
+            .brand-text .main-title { font-size: 1rem; }
+            .brand-text .sub-title { font-size: 1.1rem; }
+        }
+
+    </style>
+    <style>
+    /* --- SOCIAL WALL SECTION --- */
+    .social-wall {
+        padding: 60px 5%;
+        background: var(--pure-white);
+        text-align: center;
+    }
+
+    .social-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        margin-top: 30px;
+    }
+
+    .social-item {
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        position: relative;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+
+    .social-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .social-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 64, 26, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: 0.3s;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .social-item:hover .social-overlay { opacity: 1; }
+    .social-item:hover img { transform: scale(1.1); }
+
+    /* --- THE GRAND FOOTER --- */
+    .main-footer {
+        background: var(--p-green);
+        color: white;
+        padding: 80px 5% 30px;
+        position: relative;
+        margin-top: 50px;
+        border-radius: 50px 50px 0 0;
+    }
+
+    .footer-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+        gap: 50px;
+    }
+
+    .footer-about .footer-logo {
+        height: 60px;
+        margin-bottom: 20px;
+        
+    }
+
+    .footer-title {
+        font-family: var(--font-main);
+        font-size: 1.2rem;
+        font-weight: 800;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--s-green); /* Emerald Green Accent */
+    }
+
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 12px; }
+    .footer-links a { 
+        color: rgba(255,255,255,0.7); 
+        text-decoration: none; 
+        transition: 0.3s; 
+        font-size: 0.9rem;
+    }
+    .footer-links a:hover { color: white; padding-left: 5px; }
+
+    /* Newsletter Box */
+    .newsletter-box {
+        background: rgba(255,255,255,0.1);
+        padding: 25px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .newsletter-box input {
+        width: 100%;
+        padding: 12px 20px;
+        border-radius: 50px;
+        border: none;
+        margin-bottom: 10px;
+        font-family: var(--font-main);
+    }
+
+    /* Opening Hours Row */
+    .hours-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding-bottom: 5px;
+    }
+
+    /* Back to Top */
+    .back-to-top {
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 50px;
+        background: var(--pure-white);
+        color: var(--p-green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
+
+    .back-to-top:hover { transform: translateX(-50%) translateY(-5px); }
+
+    /* Footer Bottom */
+    .footer-bottom {
+        text-align: center;
+        padding-top: 50px;
+        margin-top: 50px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.5);
+    }
+
+    /* --- RESPONSIVE PART 4 --- */
+    @media (max-width: 1024px) {
+        .social-grid { grid-template-columns: repeat(3, 1fr); }
+        .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+        .social-grid { grid-template-columns: repeat(2, 1fr); }
+        .footer-container { grid-template-columns: 1fr; text-align: center; }
+        .hours-row { justify-content: center; gap: 20px; }
+        .main-footer { padding-bottom: 100px; } /* Space for mobile bottom nav */
+    }
+    
+</style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="overlay"></div>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">
+            <img src="images/logo.png" alt="Logo">
+            <div class="brand-text">
+                <span class="main-title">Pakistan Foods</span>
+                <span class="sub-title">& Noor Bakery</span>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">All Dishes</a></li>
+                <li><a href="gallery.html">Photo Gallery</a></li>
+                <li><a href="about.html">Our Story</a></li>
+                <li><a href="contact.html">Find Us</a></li>
+                <a href="https://wa.me/923009851744" target="_blank"><button href="https://wa.me/923009851744" class="btn btn-primary" style="margin-top: auto;">Order Now</button></a>
+        </ul>
+
+        <div class="menu-btn" id="openMenu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="side-nav" id="sidebar">
+        <div class="close-btn" id="closeMenu"><i class="fas fa-times"></i></div>
+        <div style="margin-bottom: 20px;">
+            <span style="font-weight: 800; color: var(--s-green);">MAIN MENU</span>
+        </div>
+        <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">All Dishes</a></li>
+                <li><a href="gallery.html">Photo Gallery</a></li>
+                <li><a href="about.html">Our Story</a></li>
+                <li><a href="contact.html">Find Us</a></li>
+        <a href="https://wa.me/923009851744" target="_blank"></a><button class="btn btn-primary" style="margin-top: auto;">Order Now</button></a>
+    </div>
+
+
+
+    <script>
+        const founderContainer = document.querySelector('.bf-image-hold');
+        const imgZoom = document.getElementById('bakeryFounderImg');
+
+        // Image Zoom on Hover
+        founderContainer.addEventListener('mouseenter', () => {
+            imgZoom.style.transform = 'scale(1.15)';
+        });
+
+        founderContainer.addEventListener('mouseleave', () => {
+            imgZoom.style.transform = 'scale(1)';
+        });
+
+        // Simple scroll reveal (Optional)
+        window.addEventListener('scroll', () => {
+            const section = document.querySelector('.bakery-founder-section');
+            const position = section.getBoundingClientRect().top;
+            const screenHeight = window.innerHeight / 1.3;
+
+            if (position < screenHeight) {
+                section.style.opacity = '1';
+                section.style.transition = 'all 1s ease-out';
+            }
+        });
+    </script>
+</section>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<div class="about-ultimate-wrapper">
+    <style>
+        :root {
+            --p-green: #00401A;
+            --s-green: #006429;
+            --accent: #25D366;
+            --white: #ffffff;
+            --bg: #f8faf8;
+            --transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .about-ultimate-wrapper {
+            background: var(--bg);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #333;
+            padding-top: 150px; /* Header Space */
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. HERO SECTION --- */
+        .hero-box {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--p-green); font-weight: 900; line-height: 1.2; margin-bottom: 20px; }
+        .hero-text p { font-size: 1.1rem; line-height: 1.8; color: #555; }
+        .hero-img img { width: 100%; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        /* --- 2. CEO SECTION (SPECIAL) --- */
+        .ceo-division {
+            background: var(--white);
+            padding: 80px 20px;
+            margin: 60px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ceo-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .ceo-img-wrap { position: relative; text-align: center; }
+        .ceo-img-wrap img { 
+            width: 100%; 
+            max-width: 320px; 
+            border-radius: 25px; 
+            border: 8px solid var(--bg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .ceo-name-tag {
+            position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+            background: var(--p-green); color: white; padding: 12px 35px;
+            border-radius: 50px; font-weight: 800; white-space: nowrap;
+            box-shadow: 0 10px 20px rgba(0,64,26,0.2);
+        }
+
+        .ceo-msg blockquote { font-size: 1.4rem; color: var(--p-green); font-weight: 700; font-style: italic; line-height: 1.5; margin-bottom: 20px; }
+
+        /* --- 3. STATS SECTION --- */
+        .stats-banner { background: var(--p-green); padding: 60px 20px; color: white; margin: 80px 0; }
+        .stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .stat-card h2 { font-size: 3.2rem; color: var(--accent); font-weight: 900; margin-bottom: 5px; }
+        .stat-card p { font-size: 0.8rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; }
+
+        /* --- 4. QUALITY CARDS --- */
+        .quality-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 0 20px; }
+        .q-card { background: white; padding: 40px 25px; border-radius: 25px; text-align: center; transition: var(--transition); border: 1px solid #f0f0f0; }
+        .q-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .q-card i { font-size: 2.5rem; color: var(--s-green); margin-bottom: 20px; }
+        .q-card h4 { font-size: 1.3rem; color: var(--p-green); font-weight: 800; margin-bottom: 15px; }
+
+        /* Scroll Animation Class */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Mobile Fixes */
+        @media (max-width: 900px) {
+            .hero-box, .ceo-container, .stats-grid, .quality-grid { grid-template-columns: 1fr; text-align: center; }
+            .ceo-container { gap: 60px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+
+    <section class="hero-box">
+        <div class="hero-text reveal">
+            <span style="color:var(--s-green); font-weight:900; text-transform:uppercase; letter-spacing:1px;">Humari Kahani</span>
+            <h1>Pakistan Foods & Noor Bakery</h1>
+            <p>Pakistan Foods aur Noor Bakery ka maqsad Khewra mein aik aisa miyar paida karna hai jahan safayi aur zaiqa dono milte hain. Humari pehchan hamara taaza khana aur logon ka aitmaad hai.</p>
+        </div>
+        <div class="hero-img reveal">
+            <img src="images/resturant_image2.png" alt="Restaurant" onerror="this.src='https://via.placeholder.com/600x400?text=About+Our+Shop'">
+        </div>
+    </section>
+
+    <section class="ceo-division">
+        <div class="ceo-container">
+            <div class="ceo-img-wrap reveal">
+                <img src="images/ceo.png" alt="CEO" onerror="this.src='https://via.placeholder.com/350x450?text=CEO+Photo'">
+                <div class="ceo-name-tag">Naseer Niazi (CEO)</div>
+            </div>
+            <div class="ceo-msg reveal">
+                <span style="color:var(--s-green); font-weight:900; text-transform:uppercase;">CEO ka Message</span>
+                <blockquote>"Humara har luqma aapki sehat aur khushi ki zamanat hai."</blockquote>
+                <p>Noor Bakery aur Pakistan Foods ka bunyadi maqsad sirf karobar nahi, balkay apne logon ko behtreen fast food aur bakery items farahum karna hai. Humari poori team koshish karti hai ke har item taaza aur 100% hygienic ho.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-banner-new">
+    <div class="stats-wrapper">
+        <div class="stat-item-new">
+            <h2 class="counter-num" data-target="10">0</h2>
+            <p>DISHES CATEGORIES</p>
+        </div>
+        <div class="stat-item-new">
+            <h2 class="counter-num" data-target="100">0</h2>
+            <p>PURE INGREDIENTS</p>
+        </div>
+        <div class="stat-item-new">
+            <h2 class="counter-num" data-target="1000">0</h2>
+            <p>MONTHLY CUSTOMERS</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* 1. SECTION STYLING (Dark Green Background) */
+    .stats-banner-new {
+        background: #003d15; /* Image se match karta hua Dark Green */
+        padding: 80px 20px;
+        color: white;
+        text-align: center;
+        margin: 60px 0;
+    }
+
+    /* 2. GRID WRAPPER (Spacing for PC & Mobile) */
+    .stats-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* PC par 3 columns */
+        gap: 30px;
+        align-items: center;
+    }
+
+    /* 3. NUMBERS STYLING (Bright Green) */
+    .counter-num {
+        font-size: clamp(2.5rem, 6vw, 4.5rem); /* Responsive size */
+        color: #25D366; /* Image wala Bright Green */
+        font-weight: 900;
+        margin: 0;
+        line-height: 1;
+    }
+
+    /* 4. TEXT STYLING (White & Uppercase) */
+    .stat-item-new p {
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-top: 15px;
+        color: white;
+        text-transform: uppercase;
+        opacity: 0.9;
+    }
+
+    /* 5. MOBILE RESPONSIVENESS (Alignment Fix) */
+    @media (max-width: 768px) {
+        .stats-banner-new {
+            padding: 60px 15px;
+        }
+        .stats-wrapper {
+            grid-template-columns: 1fr; /* Mobile par line by line (Vertical) */
+            gap: 50px; /* Mobile par cards ke beech zyada gap */
+        }
+        .counter-num {
+            font-size: 3.5rem;
+        }
+    }
+</style>
+
+<script>
+    // COUNTER SCRIPT (Auto-detects "+" for 1000)
+    document.addEventListener('DOMContentLoaded', () => {
+        const counterItems = document.querySelectorAll('.counter-num');
+        
+        const startCounter = (el) => {
+            const target = +el.getAttribute('data-target');
+            let current = 0;
+            const increment = target / 40; // Speed control
+            
+            const update = () => {
+                current += increment;
+                if (current < target) {
+                    el.innerText = Math.ceil(current);
+                    setTimeout(update, 30);
+                } else {
+                    // Logic: Agar 1000 hai toh '+' lagaye (Image ke mutabik)
+                    el.innerText = target + (target === 1000 ? "+" : "");
+                }
+            };
+            update();
+        };
+
+        // Observer taake jab user scroll kar ke yahan pohnche tabhi animation chale
+        const observerOptions = { threshold: 0.6 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        counterItems.forEach(item => observer.observe(item));
+    });
+</script>
+    <section class="quality-grid">
+        <div class="q-card reveal">
+            <i class="fas fa-medal"></i>
+            <h4>High Quality</h4>
+            <p>Hum sirf behtreen ingredients istemal karte hain taake zaiqa hamesha lajawab rahe.</p>
+        </div>
+        <div class="q-card reveal" style="transition-delay: 0.2s;">
+            <i class="fas fa-broom"></i>
+            <h4>Full Safayi</h4>
+            <p>Safayi humari pehli tarjeeh hai. Kitchen aur bakery ko rozana sterilize kiya jata hai.</p>
+        </div>
+        <div class="q-card reveal" style="transition-delay: 0.4s;">
+            <i class="fas fa-heart"></i>
+            <h4>Dil Se Service</h4>
+            <p>Hamara staff aapka khayal rakhta hai taake aapka har visit yaadgaar ban sake.</p>
+        </div>
+    </section>
+
+    <script>
+        // Error 2 Fix: DOMContentLoaded taake script load hone ka intezar kare
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. SCROLL REVEAL ENGINE
+            const reveal = () => {
+                const reveals = document.querySelectorAll(".reveal");
+                reveals.forEach(el => {
+                    let windowHeight = window.innerHeight;
+                    let elementTop = el.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 100) {
+                        el.classList.add("active");
+                    }
+                });
+            };
+            window.addEventListener("scroll", reveal);
+            reveal(); // Initial call
+
+            // 2. COUNTER ENGINE (FIXED)
+            const counters = document.querySelectorAll('.counter');
+            const runCounters = () => {
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const increment = target / 100;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(() => runCounters(), 20); // Recurse inside
+                    } else {
+                        counter.innerText = target + (target > 100 ? "+" : "");
+                    }
+                });
+            };
+
+            // Observer to start counters when visible
+            const statsSection = document.querySelector('.stats-banner');
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    // Optimized counter call
+                    const startCount = (el) => {
+                        const target = +el.getAttribute('data-target');
+                        let current = 0;
+                        const step = target / 50;
+                        const timer = setInterval(() => {
+                            current += step;
+                            if(current >= target) {
+                                el.innerText = target + (target > 100 ? "+" : "");
+                                clearInterval(timer);
+                            } else {
+                                el.innerText = Math.floor(current);
+                            }
+                        }, 30);
+                    };
+                    counters.forEach(c => startCount(c));
+                    observer.unobserve(statsSection);
+                }
+            }, { threshold: 0.5 });
+
+            if(statsSection) observer.observe(statsSection);
+        });
+    </script>
+</div>
+
+
+<footer class="main-footer">
+    <div class="back-to-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <div class="footer-container">
+        <div class="footer-about">
+            <img src="images/logo.png" alt="Logo" class="footer-logo">
+            <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.8;">
+                Pakistan Foods & Noor Bakery is dedicated to bringing you the finest taste in Khewra, Pakistan. Since our inception, we focus on quality, hygiene, and authentic flavors.
+            </p>
+        </div>
+
+        <div class="footer-col">
+            <h4 class="footer-title">Explore</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">All Dishes</a></li>
+                <li><a href="gallery.html">Photo Gallery</a></li>
+                <li><a href="about.html">Our Story</a></li>
+                <li><a href="contact.html">Find Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4 class="footer-title">Opening Hours</h4>
+            <div class="hours-row"><span>Mon - Thu</span> <span>9am - 11pm</span></div>
+            <div class="hours-row"><span>Friday</span> <span>9am - 12pm <br>&<br>  3pm - 11pm </span></div>
+            <div class="hours-row"><span>Sat - Sun</span> <span>9am - 11pm</span></div>
+        </div>
+
+        <div class="footer-col">
+    <h4 class="footer-title">Visit Our Kitchen</h4>
+    <div class="footer-info-card">
+        <div class="info-item">
+            <div class="info-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="info-text">
+                <p>Khewra Rd, opposite LCI Gate, New Modern Colony, <br> Khewra, Pakistan</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="info-text">
+                <p><strong>Mon - Sun:</strong> 08:00 AM - 11:00 PM</p>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-icon">
+                <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="info-text">
+                <p>+92 3009851744</p>
+            </div>
+        </div>
+
+        <a href="https://maps.app.goo.gl/d3HAQnb6uiiHjsnA8" target="_blank" class="direction-btn">
+            Open Location <i class="fas fa-map-marker-alt"></i>
+        </a>
+    </div>
+
+    <style>
+        .footer-col {
+            flex: 1;
+            min-width: 280px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-title {
+            color: #1e5631; /* Theme Green */
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .footer-title::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background: #1e5631;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .footer-info-card {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-icon {
+            width: 35px;
+            height: 35px;
+            background: #f0fdf4; /* Very light green */
+            color: #1e5631;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 14px;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+
+        .info-item:hover .info-icon {
+            background: #1e5631;
+            color: #fff;
+        }
+
+        .info-text p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: white;
+            line-height: 1.5;
+        }
+
+        .status-tag {
+            font-size: 11px;
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .direction-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #ffffff;
+            color: #1e5631;
+            border: 2px solid #1e5631;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .direction-btn:hover {
+            background: #1e5631;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(30, 86, 49, 0.2);
+        }
+
+        /* Small Animation for the "Open Now" tag */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .status-tag {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2024 Pakistan Foods & Noor Bakery. All Rights Reserved. | Designed in khewra, Pakistan</p>
+    </div>
+</footer>
+
+<script>
+    // Part 4 JS: Back to Top
+    const scrollTop = document.getElementById('scrollTop');
+    scrollTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Intersection Observer for scroll animations (Bonus for interactivity)
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, observerOptions);
+
+    // Apply to sections
+    document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(30px)";
+        section.style.transition = "1s ease-out";
+        observer.observe(section);
+    });
+</script>
+    <script>
+        // 1. Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 500);
+            }, 1000);
+        });
+
+        // 2. Sidebar Toggle Logic
+        const openMenu = document.getElementById('openMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        const toggleMenu = (show) => {
+            sidebar.classList.toggle('active', show);
+            overlay.style.display = show ? 'block' : 'none';
+            document.body.style.overflow = show ? 'hidden' : 'initial';
+        };
+
+        openMenu.addEventListener('click', () => toggleMenu(true));
+        closeMenu.addEventListener('click', () => toggleMenu(false));
+        overlay.addEventListener('click', () => toggleMenu(false));
+
+        // Close sidebar on link click
+        document.querySelectorAll('.side-nav a').forEach(link => {
+            link.addEventListener('click', () => toggleMenu(false));
+        });
+
+        // 3. Desktop Parallax
+        document.addEventListener('mousemove', (e) => {
+            if(window.innerWidth > 1024) {
+                const logo = document.querySelector('.floating-logo');
+                const x = (window.innerWidth - e.pageX * 2) / 60;
+                const y = (window.innerHeight - e.pageY * 2) / 60;
+                logo.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+    </script>
+    <style>
+    /* 1. SCROLL PROGRESS BAR (Top of the page) */
+    #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--p-green), var(--s-green));
+        z-index: 10001;
+        transition: width 0.1s ease-out;
+    }
+
+    /* 2. ADVANCED BUTTON SHIMMER EFFECT */
+    .btn-primary {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .btn-primary:hover::before {
+        left: 100%;
+    }
+
+    /* 3. REVEAL ANIMATIONS CLASSES */
+    .reveal-up {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+
+    .reveal-up.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 4. MOUSE FOLLOWER (Subtle Glow) */
+    #mouse-glow {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(0, 64, 26, 0.05) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: -1;
+        transform: translate(-50%, -50%);
+        transition: 0.1s ease-out;
+    }
+
+    /* 5. TEXT HIGHLIGHT ANIMATION */
+    .highlight-text {
+        position: relative;
+        display: inline-block;
+        color: var(--p-green);
+        z-index: 1;
+    }
+
+    .highlight-text::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        width: 100%;
+        height: 12px;
+        background: rgba(0, 100, 41, 0.1);
+        z-index: -1;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.6s ease;
+    }
+
+    .active .highlight-text::after {
+        transform: scaleX(1);
+    }
+
+    /* 6. GLASS CARD ENHANCEMENT */
+    .cat-card, .spec-card, .heritage-img-box {
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 10px 30px rgba(0, 64, 26, 0.03);
+    }
+
+</style>
+
+<div id="scroll-progress"></div>
+<div id="mouse-glow"></div>
+
+<script>
+    /* ============================================================
+       PART 5: JAVASCRIPT INTERACTIVE LOGIC
+       ============================================================ */
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // 1. SCROLL PROGRESS BAR LOGIC
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scroll-progress').style.width = scrolled + "%";
+        });
+
+        // 2. MOUSE GLOW FOLLOWER (PC ONLY)
+        const glow = document.getElementById('mouse-glow');
+        if(window.innerWidth > 1024) {
+            document.addEventListener('mousemove', (e) => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        }
+
+        // 3. SMART REVEAL-ON-SCROLL (Intersection Observer)
+        const revealElements = document.querySelectorAll('.cat-card, .spec-card, .heritage-content, .contact-info-card, .section-header');
+        
+        // Add reveal class to items
+        revealElements.forEach(el => el.classList.add('reveal-up'));
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // If it's the stats section, trigger counter
+                    if(entry.target.classList.contains('heritage-content')) {
+                        startCounters();
+                    }
+                }
+            });
+        }, { threshold: 0.2 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 4. DYNAMIC STATS COUNTER LOGIC
+        function startCounters() {
+            const counters = document.querySelectorAll('.stat-item h4');
+            counters.forEach(counter => {
+                const target = parseInt(counter.innerText);
+                if(isNaN(target)) return; // Skip if already handled (e.g. "15+")
+
+                let count = 0;
+                const updateCount = () => {
+                    const speed = target / 50;
+                    if(count < target) {
+                        count += speed;
+                        counter.innerText = Math.ceil(count) + (counter.innerText.includes('+') ? '+' : '');
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + (counter.innerText.includes('+') ? '+' : '');
+                    }
+                }
+                updateCount();
+            });
+        }
+
+        // 5. IMAGE HOVER TILT (Subtle Effect for 3D Images)
+        const cards = document.querySelectorAll('.cat-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+            });
+        });
+
+        // 6. WHATSAPP CLICK HANDLER
+        const whatsappBtn = document.querySelector('.btn-outline'); // Assuming it's the WhatsApp button
+        if(whatsappBtn && whatsappBtn.innerText.includes('Whatsapp')) {
+            whatsappBtn.addEventListener('click', () => {
+                const msg = encodeURIComponent("Hello Pakistan Foods & Noor Bakery! I want to check your menu.");
+                window.open(`https://wa.me/923001234567?text=${msg}`, '_blank');
+            });
+        }
+    });
+</script>
+</body>
+</html>
